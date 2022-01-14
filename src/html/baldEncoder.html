@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>秃头词的挂</title>
+    <style>
+        body{
+            background-color: #bba99b;
+        }
+        input{
+            border-radius: 4px;
+            border-color: #535f54;
+            background-color: #f0f2f5;
+            background: #f0f2f5;
+        }
+        .txt{
+            height : 200px;
+            width : 80%;
+            border-radius: 4px;
+            border-color: #535f54;
+            background-color: #f0f2f5;
+            display: block;
+        }
+        .button2{
+            background-color: #82a082; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        .button2:hover{
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+    </style>
+</head>
+<body>
+<h4>我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼我是挂逼
+</h4>
+&nbsp;&nbsp;&nbsp;&nbsp;请输入偏移值：&nbsp;&nbsp;&nbsp;<input id="calculate_key" value="1"/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;请输入原文字：<br/>
+<textarea id="input_txt" class="txt"></textarea><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<button id="btn1" class="button2">转换↓</button>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button id="btn2" class="button2">转换↑</button><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;请输入偏移后文字：<br/>
+<textarea id="output_txt" class="txt"></textarea><br/>
+</body>
+</html>
+<script>
+window.onload=function() {
+    console.log("1");
+    document.getElementById('btn2').onclick = function(){
+        let output = document.getElementById('output_txt').value;
+        let calculate_key = document.getElementById('calculate_key').value;
+        let input = move_unicode(output, -parseInt(calculate_key));
+        document.getElementById('input_txt').value = input;
+    };
+    document.getElementById('btn1').onclick = function(){
+        let input = document.getElementById('input_txt').value;
+        let calculate_key = document.getElementById('calculate_key').value;
+        let output = move_unicode(input,parseInt(calculate_key));
+        document.getElementById('output_txt').value = output;
+    };
+    function move_unicode(word,move){
+           console.log("偏移量为：" + move + "，原词为：" + word);
+           let result = "";
+           for(let ch1 of word){
+           let unicode =escape(ch1);
+           console.log("Unicode编码是：" + unicode);
+           let int_unicode = parseInt(unicode.substr(2),16);
+           console.log("Unicode编码十进制是：" + int_unicode);
+           let result_unicode = "%u"+(int_unicode+move).toString(16);
+           console.log("移动后的Unicode编码是：" + result_unicode);
+           result += unescape(result_unicode);
+           }
+        return result;
+    }
+}
+</script>
